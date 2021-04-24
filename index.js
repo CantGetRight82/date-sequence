@@ -2,7 +2,28 @@ import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek.js';
 dayjs.extend(isoWeek);
 
+
+const formats = {
+    day: 'YYYY-MM-DD',
+    month: 'YYYY-MM',
+    year: 'YYYY',
+}
+
+
 export default class DateSequence {
+    static createPeriod(period, to, maxUnits = 10) {
+        const dfrom = dayjs(to).subtract(maxUnits, period);
+        const from = dfrom.format('YYYY-MM-DD');
+        if(period !== 'week') {
+            return DateSequence.units(
+                from, to,
+                dfrom, maxUnits,
+                period, formats[period],
+            );
+        }
+        return DateSequence.weekUnits(from, to, dfrom, maxUnits);
+    }
+
     static create(from, to, maxUnits = 10) {
         const dfrom = dayjs(from);
         const days = dayjs(to).diff(dfrom, 'day') + 1;
