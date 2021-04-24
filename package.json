@@ -1,6 +1,6 @@
 {
   "name": "date-sequence",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Given a from and to date, creates a sequence of date ranges for use in graphs.",
   "main": "index.js",
   "type": "module",
